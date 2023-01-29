@@ -98,10 +98,94 @@ def upload():
             <img src="{}" width="800" height="600"/>
         '''.format(exposure_score, focus_score, url_for('static', filename=file_path))
     return """
-    <form action="/" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
+<html>
+<head>
+    <title>Upload and Display Image</title>
+    <style>
+        body {
+            background-color: lightblue;
+        }
+
+        .banner {
+            background-color: blue;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .btn {
+            background-color: teal;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .img-container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .img {
+            width: 500px;
+            height: auto;
+        }
+
+        .scores {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">Welcome to PictureDay</div>
+    <div class="container">
+        <form action="/" method="post" enctype="multipart/form-data">
+            <div class="buttons">
+                <label for="file" class="btn">Choose File</label>
+                <input type="file" id="file" name="file" style="display: none;">
+                <input type="submit" value="Upload" class="btn">
+            </div>
+        </form>
+        {% if image_path %}
+        <div class="img-container">
+            <img src="{{ image_path }}" class="img">
+        </div>
+        <div class="scores">
+            <p>Focus Score: {{ focus_score }}</p>
+            <p>Exposure Score: {{ exposure_score }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
+
     """
 
 
